@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Setup hardener
-        uses: securable-ai/hardener@d27f00745e656371eaef26cc9cd382df05677521 # securable-ai/hardener@v1.3.0 | main
+        uses: securable-ai/hardener@v1.0.0
       - name: Checkout
         id: checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # actions/checkout@v4 | 1567,v4.2.2
