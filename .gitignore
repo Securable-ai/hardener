@@ -104,6 +104,6 @@ __tests__/runner/*
 
 bin/
 
-src/generated/
+src/generated/*
 
 audit*.json
