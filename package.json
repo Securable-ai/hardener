@@ -1,7 +1,7 @@
 {
   "name": "hardener",
   "description": "A Github Action for build environments that detects and blocks unauthorized network requests and prevents secret exfiltration",
-  "version": "v1.0.0-rc",
+  "version": "v2.0.0-rc",
   "author": "Rohit Kumar",
   "private": true,
   "homepage": "https://github.com/securable-ai/hardener#readme",
