@@ -98,6 +98,10 @@ packages or containers to GitHub Packages'
   description: 'Needed for ECS metadata'
   destination: '169.254.170.2'
   action: 'allow'
+- name: 'Reqd for Analysis'
+  description: 'Needed for sending results to securable API endpoint'
+  destination: '*.securable.ai'
+  action: 'allow'
 """
 
 
