@@ -380,6 +380,47 @@ ${knownDestinationsTableString}
   core.info(`API Key: ${apiKey}`)
   if (endPoint != '' && apiKey != '') {
     core.info('Sending summary to API endpoint')
+    const reportData = {
+      metadata: {
+        repo: repoName,
+        run_id: runId,
+        job_id: jobID,
+        mode: mode,
+        timestamp: new Date().toISOString()
+      },
+      configuration: {
+        allow_http: allowHTTP,
+        default_policy: defaultPolicy,
+        trusted_github_accounts: trustedGithubAccounts,
+        egress_rules: egressRules
+      },
+      results: {
+        total_requests: results.length,
+        unique_destinations: uniqueResults.length,
+        allowed_requests: results.filter(r => r.action === 'allow').length,
+        blocked_requests: results.filter(r => r.action === 'block').length,
+        destinations: uniqueResults.map(result => ({
+          destination: result.destination,
+          scheme: result.scheme,
+          rule: result.rule_name,
+          action: result.action
+        }))
+      },
+      security_findings: {
+        untrusted_github_accounts: untrustedGithubAccounts,
+        tampered_files: tamperedFiles,
+        audit_summary: {
+          total_events: auditSummary.total,
+          suspicious_processes: auditSummary.suspiciousProcesses,
+          suspicious_files: auditSummary.suspiciousFiles,
+          network_events: auditSummary.networkEvents
+        }
+      },
+      raw_data: {
+        github_calls: githubCalls,
+        audit_logs: auditSummary.rawLogs // Assuming auditSummary contains raw logs
+      }
+    }
     const response = await fetch(endPoint, {
       method: 'POST',
       headers: {
@@ -387,7 +428,7 @@ ${knownDestinationsTableString}
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        summary: JSON.stringify(summary)
+        summary: JSON.stringify(reportData)
       })
     })
     core.info(`API response: ${response.status}`)
