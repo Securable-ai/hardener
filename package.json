@@ -1,0 +1,93 @@
+{
+  "name": "hardener",
+  "description": "A Github Action for build environments that detects and blocks unauthorized network requests and prevents secret exfiltration",
+  "version": "v1.0.0-rc",
+  "author": "Rohit Kumar",
+  "private": true,
+  "homepage": "https://github.com/securable-ai/hardener#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/securable-ai/hardener.git"
+  },
+  "bugs": {
+    "url": "https://github.com/securable-ai/hardener/issues"
+  },
+  "keywords": [
+    "GitHub",
+    "Actions",
+    "Egress Filtering",
+    "Github Action Security",
+    "hardener",
+    "JavaScript"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "bundle": "npm run render_ejs && npm run format:write && npm run package",
+    "ci-test": "jest",
+    "format:write": "prettier --write **/*.js",
+    "format:check": "prettier --check **/*.js",
+    "local-lint": "docker run --rm -e RUN_LOCAL=true --env-file \"./super-linter.env\" -v \"$PWD\":/tmp/lint ghcr.io/super-linter/super-linter:v7",
+    "lint": "npx eslint . -c ./.github/linters/.eslintrc.yml",
+    "package": "ncc build src/index.js --license licenses.txt",
+    "package:watch": "npm run package -- --watch",
+    "test": "(jest && make-coverage-badge --output-path ./badges/coverage.svg) || make-coverage-badge --output-path ./badges/coverage.svg",
+    "render_ejs": "node src/wrappers/render.js",
+    "all": "npm run render_ejs && npm run format:write && npm run lint && npm run test && npm run package"
+  },
+  "license": "MIT",
+  "eslintConfig": {
+    "extends": "./.github/linters/.eslintrc.yml"
+  },
+  "jest": {
+    "verbose": true,
+    "clearMocks": true,
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "testMatch": [
+      "**/*.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/dist/"
+    ],
+    "coverageReporters": [
+      "json-summary",
+      "text",
+      "lcov"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./src/**"
+    ]
+  },
+  "dependencies": {
+    "@actions/artifact": "^2.1.9",
+    "@actions/cache": "^4.0.2",
+    "@actions/core": "^1.10.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.0",
+    "is-docker": "^3.0.0",
+    "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/eslint-parser": "^7.25.1",
+    "@babel/preset-env": "^7.25.4",
+    "@vercel/ncc": "^0.38.1",
+    "babel-preset-jest": "^29.6.3",
+    "ejs": "^3.1.10",
+    "eslint": "^9.22.0",
+    "eslint-plugin-github": "^5.0.1",
+    "eslint-plugin-jest": "^28.8.3",
+    "jest": "^29.7.0",
+    "make-coverage-badge": "^1.2.0",
+    "prettier": "^3.3.3"
+  }
+}

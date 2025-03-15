@@ -1,0 +1,46 @@
+name: 'Github Actions Hardener'
+description: 'A Github Action for build environments that detects and blocks unauthorized network requests and prevents secret exfiltration.'
+author: 'securable-ai'
+branding:
+  color: 'black'
+  icon: 'lock'
+# Define your inputs here.
+inputs:
+  graceful:
+    description: 'Failure behaviour on unsupported platforms - true or false'
+    required: false
+    default: true
+  mode:
+    description: 'Mode of operation - audit or active'
+    required: false
+    default: 'audit'
+  allow_http:
+    description: 'Allow HTTP traffic'
+    required: false
+    default: false
+  default_policy:
+    description: 'Default policy for egress traffic - allow-all or block-all'
+    required: false
+    default: 'block-all'
+  trusted_github_accounts:
+    description: 'Trusted Github accounts'
+    required: false
+    default: '[]'
+  egress_rules:
+    description: 'Egress rules'
+    required: false
+    default: '[]'
+  disable_passwordless_sudo:
+    description: 'Disable sudo without password'
+    required: false
+    default: false
+
+# Define your outputs here.
+outputs:
+  egress_report:
+    description: 'Egress report'
+
+runs:
+  using: node20
+  main: dist/index.js
+  post: dist/index.js
