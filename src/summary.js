@@ -233,7 +233,7 @@ async function generateSummary() {
   core.summary.emptyBuffer()
 
   const auditSummary = await getAuditSummary()
-  const tamperedFiles = await checkForBuildTampering()
+  const tamperedFiles = (await checkForBuildTampering()) || []
 
   const tamperedFilesData = [
     [{ data: 'Tampered Files', header: true }],
@@ -248,7 +248,10 @@ async function generateSummary() {
   let summary = core.summary
     .addSeparator()
     .addEOL()
-    .addHeading('📊 Outbound Traffic Security Report - Powered by Hardener', 2)
+    .addHeading(
+      '📊 Github Actions Security Report - Powered by Securable.ai Hardener',
+      2
+    )
     .addRaw(
       `
 <details open>
