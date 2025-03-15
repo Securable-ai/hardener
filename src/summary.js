@@ -378,7 +378,7 @@ ${knownDestinationsTableString}
   const apiKey = getAPIKey()
   core.info(`Endpoint: ${endPoint}`)
   core.info(`API Key: ${apiKey}`)
-  if (endPoint != '' && apiKey != '') {
+  if (endPoint !== '' && apiKey !== '') {
     core.info('Sending summary to API endpoint')
     const reportData = {
       metadata: {
