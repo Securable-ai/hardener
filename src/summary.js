@@ -387,7 +387,7 @@ ${knownDestinationsTableString}
         Authorization: `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        summary: summary.toString()
+        summary: JSON.stringify(summary)
       })
     })
     core.info(`API response: ${response.status}`)
