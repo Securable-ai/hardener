@@ -6,6 +6,14 @@ branding:
   icon: 'lock'
 # Define your inputs here.
 inputs:
+  endpoint:
+    description: 'Endpoint for the securable-ai API'
+    required: false
+    default: ''
+  secret:
+    description: 'Secret for the securable-ai API'
+    required: false
+    default: ''
   graceful:
     description: 'Failure behaviour on unsupported platforms - true or false'
     required: false
