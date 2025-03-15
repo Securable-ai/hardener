@@ -376,8 +376,9 @@ ${knownDestinationsTableString}
 
   const endPoint = getEndPoint()
   const apiKey = getAPIKey()
-
-  if (endPoint !== '' && apiKey == '') {
+  core.info(`Endpoint: ${endPoint}`)
+  core.info(`API Key: ${apiKey}`)
+  if (endPoint != '' && apiKey != '') {
     core.info('Sending summary to API endpoint')
     const response = await fetch(endPoint, {
       method: 'POST',
@@ -390,6 +391,10 @@ ${knownDestinationsTableString}
       })
     })
     core.info(`API response: ${response.status}`)
+  } else {
+    core.info(
+      'API endpoint or API key not provided, skipping Sending summary to API endpoint'
+    )
   }
 }
 
