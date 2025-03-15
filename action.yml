@@ -1,4 +1,4 @@
-name: 'Github Actions Hardener'
+name: 'Actions Hardener'
 description: 'Github Action for build environments that detects and blocks unauthorized network requests and prevents secret exfiltration.'
 author: 'securable-ai'
 branding:
