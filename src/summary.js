@@ -9,7 +9,9 @@ const {
   getAllowHTTP,
   getDefaultPolicy,
   getEgressRules,
-  getTrustedGithubAccounts
+  getTrustedGithubAccounts,
+  getEndPoint,
+  getAPIKey
 } = require('./input')
 const {
   generateTestResults,
@@ -370,6 +372,25 @@ ${knownDestinationsTableString}
 
   // Write the summary
   summary.write()
+  core.info('Summary generated')
+
+  const endPoint = getEndPoint()
+  const apiKey = getAPIKey()
+
+  if (endPoint !== '' && apiKey == '') {
+    core.info('Sending summary to API endpoint')
+    const response = await fetch(endPoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application',
+        Authorization: `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        summary: summary.toString()
+      })
+    })
+    core.info(`API response: ${response.status}`)
+  }
 }
 
 module.exports = { generateSummary }

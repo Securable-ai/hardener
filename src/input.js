@@ -15,6 +15,24 @@ function getGraceful() {
   return true
 }
 
+function getEndPoint() {
+  const endPointInput = `${core.getInput('endpoint')}`
+  if (endPointInput) {
+    return endPointInput
+  }
+  core.warning(`⚠️ Invalid end_point value: ${endPointInput}. Defaulting to ''`)
+  return ''
+}
+
+function getAPIKey() {
+  const apiKeyInput = `${core.getInput('secret')}`
+  if (apiKeyInput) {
+    return apiKeyInput
+  }
+  core.warning(`⚠️ Invalid api_key value: ${apiKeyInput}. Defaulting to ''`)
+  return ''
+}
+
 function getDisablePasswordlessSudo() {
   const disablePasswordlessSudoInput =
     `${core.getInput('disable_passwordless_sudo')}`.toLowerCase()
@@ -155,6 +173,8 @@ function getTrustedGithubAccounts() {
 
 module.exports = {
   getGraceful,
+  getEndPoint,
+  getAPIKey,
   getMode,
   getAllowHTTP,
   getDefaultPolicy,
