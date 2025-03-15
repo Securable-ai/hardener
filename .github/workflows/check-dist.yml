@@ -45,10 +45,17 @@ jobs:
         id: install
         run: npm ci
 
+      - name: Debug - Check Files Before Bundle
+        run: ls -lR src/generated/ || echo "Directory does not exist"
+   
       - name: Build dist/ Directory
         id: build
         run: npm run bundle
-
+   
+      - name: Debug - Check Files After Bundle
+        run: ls -lR src/generated/
+   
+      
       # This will fail the workflow if the PR wasn't created by Dependabot.
       - name: Compare Directories
         id: diff
